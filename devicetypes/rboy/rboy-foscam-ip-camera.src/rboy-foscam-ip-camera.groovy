@@ -21,7 +21,7 @@
  */ 
  
 def clientVersion() {
-    return "04.04.07"
+    return "04.05.02"
 }
 
 /**
@@ -29,6 +29,8 @@ def clientVersion() {
  *
  * Copyright RBoy Apps, redistribution, reuse or modification of code is not allowed without permission
  * Change log:
+ * 2020-11-12 - (v04.05.02) Clarify settings text
+ * 2020-10-09 - (v04.05.00) Support for new ST app, Fix for broken ST Android Classic app 2.18, fixed device health, added actuator capability
  * 2019-11-05 - (v04.04.07) Update device health check protocol
  * 2019-10-02 - (v04.04.06) Fix for changes in DNS name resolution
  * 2019-07-25 - (v04.04.05) Improvement to device health check and avoid mutiple calls to initialize by platform
@@ -50,10 +52,10 @@ def clientVersion() {
  * 2017-08-28 - (v03.04.06) Show errors in device events
  * 2017-07-26 - (v03.04.05) Ignore any http(s) in the address field
  * 2017-05-04 - (v03.04.04) Update UI colors to match ST recommendation
- * 2017-02-01 - (v3.4.4) Clean up and support for retrieving image from S3
- * 2017-01-31 - (v3.4.3) Fix for change in ST platform snapshot API
- * 2017-01-23 - (v3.4.2) Disabled capability "Alarm" to avoid confusion, fixed take picture due to changes in the ST platform API's
- * 2017-01-14 - (v3.4.0) Added support for PIR and Motion options and the Amba Chipset/C2, R2, FI9900P camera, added support for cloud uploading, added support for showing error in communication with camera
+ * 2017-02-01 - (v03.04.04) Clean up and support for retrieving image from S3
+ * 2017-01-31 - (v03.04.03) Fix for change in ST platform snapshot API
+ * 2017-01-23 - (v03.04.02) Disabled capability "Alarm" to avoid confusion, fixed take picture due to changes in the ST platform API's
+ * 2017-01-14 - (v03.04.00) Added support for PIR and Motion options and the Amba Chipset/C2, R2, FI9900P camera, added support for cloud uploading, added support for showing error in communication with camera
  * 2016-12-02 - Fixed issue with password special characters in RTSP streams
  * 2016-11-30 - Improved text description
  * 2016-11-22 - Fixed issue with DNS service not working
@@ -71,17 +73,12 @@ def clientVersion() {
  * 2016-04-29 - Take care of bad camera firmware creating malformed XML strings
  * 2016-04-28 - Optimized layout of UI and button for video streaming
  * 2016-04-25 - Only enable mainStream h.264 (but activate subStream MJPEG for SmartTiles) for now since subStream MJPEG has issues with compatibility with ST Phone and subStream h.264 will break SmartTiles
- * 2016-04-23 - Summary is the default tile to show the motion detection on / off in the list of things
- * 2016-04-23 - Added separate RTSP port for C1 and other HD cameras, fix for switching profiles
- * 2016-04-23 - Fix for special characters in the password, fix for changing profiles
+ * 2016-04-23 - Summary is the default tile to show the motion detection on / off in the list of things, Added separate RTSP port for C1 and other HD cameras, fix for switching profiles, Fix for special characters in the password, fix for changing profiles
  * 2016-04-22 - Provided an option for enabling MJPEG cameras which also supports SmartTiles
  * 2016-04-19 - Added support for Video streaming for HD and SD cameras with Hi and Low res stream options
  * 2016-04-12 - Allow for no password in login (not a recommended practice but allow for it)
- * 2016-04-02 - Updated color for Auto LED off to light blue
- * 2016-04-02 - Fix for left/right/up/down direction when using HDCameras and Flip/Mirror (camera auto compensates)
- * 2016-04-02 - Changed message on motion detection to Motion instead of Alarm to emulate a motion sensor (and blue color)
- * 2016-03-15 - Changed imageDataJpeg to a Base64 string instead of UTF-8 to make it compatible with SmartTiles
- * 2016-03-15 - Fixed updated function
+ * 2016-04-02 - Updated color for Auto LED off to light blue, Fix for left/right/up/down direction when using HDCameras and Flip/Mirror (camera auto compensates), Changed message on motion detection to Motion instead of Alarm to emulate a motion sensor (and blue color)
+ * 2016-03-15 - Changed imageDataJpeg to a Base64 string instead of UTF-8 to make it compatible with SmartTiles, Fixed updated function
  * 2016-03-12 - Added support for imageDataJpeg attribute to report the JPEG picture as a UTF-8 String
  * 2016-02-28 - When using public hostnames don't convert to public IP, support for reverse proxies
  * 2016-02-14 - Removed unnecessary notifications from activity log
@@ -93,70 +90,69 @@ def clientVersion() {
  * 2015-10-11 - Added support to check for SD camera wrong username/password authorization errors
  * 2015-10-03 - Added support to fallback and retry if httpGet fails with hubAction
  * 2015-10-02 - Improve support for public ip address and improved speed of response for picture taking
- * 2015-09-30 - Fixed issue with special characters not working in username and password and preset names
- * 2015-09-30 - Improved settings explanation, added message for error responses from camera
- * 2015-09-19 - Added support for MultiAttribute Tiles
- * 2015-09-19 - Check for invalid IP Address or port and other settings
+ * 2015-09-30 - Fixed issue with special characters not working in username and password and preset names, Improved settings explanation, added message for error responses from camera
+ * 2015-09-19 - Added support for MultiAttribute Tiles, Check for invalid IP Address or port and other settings
  * 2015-09-01 - Improved callback motion status update after 10 seconds
  * 2015-08-27 - Added option to reduce light sensitivity for SD cameras
- * 2015-08-24 - Fine tune movements of cameras and communication delays
- * 2015-08-24 - Fix for phantom alarm when turning on sometimes left over from previous alarm
- * 2015-08-23 - Fix for Push notification recurring alarm and improved reliability for SD Camera notifications
- * 2015-08-23 - Enabled support for Push notifications for SD cameras
- * 2015-08-23 - Removed attributes ledState and ledMode and converted to state variables
- * 2015-08-23 - Added support for SD Camera Poll Alarm notifications (push doesn't always work due to 128 character URL limit)
- * 2015-08-23 - Added support for eMail, Motion Sensitivity levels and Snap picture on motion alert for SD cameras
+ * 2015-08-24 - Fine tune movements of cameras and communication delays, Fix for phantom alarm when turning on sometimes left over from previous alarm
+ * 2015-08-23 - Fix for Push notification recurring alarm and improved reliability for SD Camera notifications, Enabled support for Push notifications for SD cameras, Removed attributes ledState and ledMode and converted to state variables, Added support for SD Camera Poll Alarm notifications (push doesn't always work due to 128 character URL limit), Added support for eMail, Motion Sensitivity levels and Snap picture on motion alert for SD cameras
  * 2015-08-22 - Bugfixes for SD Foscam (MJPEG series likes 9810)
- * 2015-08-14 - Added support for Mirror and Flip for SD cameras Video orientation
- * 2015-08-14 - Added support for SD Camera Alarm push notifications
- * 2015-08-13 - Alarm notification for SD cameras is not supported yet, only for HD cameras
- * 2015-08-13 - Fixed the rearm interval to 15 seconds because the ST platform is too slow to communicate the camera and may miss the motion alarm notification
- * 2015-06-21 - Fixed issue with refresh not working
- * 2015-06-21 - Added support for mirroring/Flipping for HD cameras and support for video mirroring/flipping
+ * 2015-08-14 - Added support for Mirror and Flip for SD cameras Video orientation, Added support for SD Camera Alarm push notifications
+ * 2015-08-13 - Alarm notification for SD cameras is not supported yet, only for HD cameras, Fixed the rearm interval to 15 seconds because the ST platform is too slow to communicate the camera and may miss the motion alarm notification
+ * 2015-06-21 - Fixed issue with refresh not working, Added support for mirroring/Flipping for HD cameras and support for video mirroring/flipping
  * 2015-06-19 - Added attributes ledState and ledMode to definitions
  * 2015-06-18 - Fix for tile names not being restored after pressing
- * 2015-06-17 - Added support for Motion Sensor to report motion - to be used in conjunction with the Foscam Motion Alarm Monitor since we can't poll from device code
- * 2015-06-17 - Enhanced reporting status dynamically, improved communicated reliablility, reduced verbosity of activity logs
- * 2015-06-17 - Added support for getting LED on/off status, simplified LED icons
- * 2015-06-17 - Fixed issue with HD camera's not working due to ST platform changes
+ * 2015-06-17 - Added support for Motion Sensor to report motion - to be used in conjunction with the Foscam Motion Alarm Monitor since we can't poll from device code, Enhanced reporting status dynamically, improved communicated reliablility, reduced verbosity of activity logs, Added support for getting LED on/off status, simplified LED icons, Fixed issue with HD camera's not working due to ST platform changes
  * 2015-03-28 - Fixed missing command siren and both for alarm capability, temp fix for android carousel hang, fixed issue with preset and cruisemap names breaking on android
  * 2015-02-22 - Fix for Alarm and Switch not being updated
  * 2015-02-04 - Presets show names
  * 2015-01-29 - Added options for configuring eMail, local ringer alarm, taking pictures and recording videos for motion detection
- * 2015-01-20 - Cruisemaps now show the names
- * 2015-01-20 - Added support for hostnames (public) instead of ipaddress for device
- * 2015-01-19 - Turning on the strobe function also takes a picture
- * 2015-01-19 - Support configuring motion alarm snap interval and motion sensitivity, added support for using as an Alarm and Switch/Relay Switch to enable monitoring
+ * 2015-01-20 - Cruisemaps now show the names, Added support for hostnames (public) instead of ipaddress for device
+ * 2015-01-19 - Turning on the strobe function also takes a picture, Support configuring motion alarm snap interval and motion sensitivity, added support for using as an Alarm and Switch/Relay Switch to enable monitoring
  */
  
 metadata {
-	definition (name: "RBoy Foscam IP Camera", namespace: "rboy", author: "RBoy Apps", ocfDeviceType: "oic.d.switch", mnmn: "SmartThings", vid:"generic-switch") { // ocfDeviceType: "oic.d.camera", mnmn: "SmartThings", vid:"SmartThings-smartthings-AVPlatform_Sercomm_RC8335_Pro_Camera", vid:"generic-camera"
-		capability "Polling"
-		capability "Image Capture"
-        capability "Relay Switch"
-        capability "Switch"
-        capability "Refresh"
-        capability "Motion Sensor"
-        capability "Sensor"
+	definition (name: "RBoy Foscam IP Camera", namespace: "rboy", author: "RBoy Apps", mnmn: "SmartThingsCommunity", vid: "b60ccfc4-f878-30b9-96ec-c94b9eebaa56") {
+		//capability "Image Capture"
         capability "Video Camera"
         //capability "Video Capture"
+        //capability "Video Clips"
+        //capability "Video Stream"
+        capability "Motion Sensor"
+        capability "Relay Switch"
+        capability "Switch"
+		capability "Polling"
+        capability "Refresh"
+        capability "Sensor"
+        capability "Actuator"
         capability "Configuration"
         capability "Health Check"
         //capability "Alarm" // Enable this if you want to use use the Camera through the Alarm action to take a picture and turn on monitoring
+        capability "rboyapps.foscamCamera"
+        capability "rboyapps.foscamCameraLed"
+        capability "rboyapps.foscamCameraPreset"
+        capability "rboyapps.foscamCameraCruise"
+        capability "rboyapps.foscamCameraMovement"
+        capability "rboyapps.restart"
+        capability "rboyapps.versioning"
         
-        attribute "alarmStatus", "string"
-        attribute "ledStatus", "string"
-        attribute "hubactionMode", "string"
-        attribute "presetTop", "string"
-        attribute "presetBottom", "string"
-        attribute "presetLeft", "string"
-        attribute "presetRight", "string"
-        attribute "preset1", "string"
-        attribute "preset2", "string"
-        attribute "preset3", "string"
-        attribute "preset4", "string"
-        attribute "preset5", "string"
-        attribute "preset6", "string"
+        ///attribute "alarmStatus", "string"
+        ///attribute "ledStatus", "string"
+        ///attribute "presetTop", "string"
+        ///attribute "presetBottom", "string"
+        ///attribute "presetLeft", "string"
+        ///attribute "presetRight", "string"
+        ///attribute "presetCenter", "string"
+        ///attribute "presetA", "string"
+        ///attribute "presetB", "string"
+        ///attribute "presetC", "string"
+        ///attribute "presetD", "string"
+        ///attribute "presetE", "string"
+        ///attribute "presetF", "string"
+        ///attribute "lastPreset", "string"
+        ///attribute "lastCruise", "string"
+        ///attribute "lastMovement", "string"
+        ///attribute "supportedPresets", "json"
         attribute "mirrorStatus", "number"
         attribute "flipStatus", "number"
         attribute "cameraType", "string"
@@ -164,49 +160,60 @@ metadata {
         attribute "detectionArea", "string"
         attribute "irState", "string"
         attribute "irMode", "string"
-        //attribute "imageDataJpeg", "string"
-        attribute "codeVersion", "string"
-        attribute "dhName", "string"
+        attribute "hubactionMode", "string"
+        //attribute "imageDataJpeg", "string" // private for communication with ActionTiles
+        ///attribute "codeVersion", "string"
+        ///attribute "dhName", "string"
+        ///attribute "reboot", "boolean"
     
-		command "alarmOn"
-		command "alarmOff"
-		command "toggleAlarm"
+		///command "alarmOn"
+		///command "alarmOff"
+		///command "toggleAlarm"
+        ///command "setAlarm", ["string"]
 
-		command "toggleLED"
-		command "ledOn"
-		command "ledOff"
-		command "ledAuto"
+		///command "toggleLED"
+		///command "ledOn"
+		///command "ledOff"
+		///command "ledAuto"
+        ///command "setLed", ["string"]
         
-		command "left"
-		command "right"
-		command "up"
-		command "down"
-        command "center"
-        command "leftDown"
-        command "leftUp"
-        command "rightDown"
-        command "rightUp"
+		///command "left"
+		///command "right"
+		///command "up"
+		///command "down"
+        ///command "center"
+        ///command "leftDown"
+        ///command "leftUp"
+        ///command "rightDown"
+        ///command "rightUp"
+        ///command "setMovement", ["string"]
         
-		command "horizontalCruise"
-		command "verticalCruise"
-		command "stopCruise"
+		///command "horizontalCruise"
+		///command "verticalCruise"
+		///command "stopCruise"
+        ///command "setCruise", ["string"]
         
-		command "preset1"
-		command "preset2"
-		command "preset3"
-		command "preset4"
-		command "preset5"
-		command "preset6"
-        command "presetTop"
-        command "presetBottom"
-        command "presetLeft"
-        command "presetRight"
+		///command "presetA"
+		///command "presetB"
+		///command "presetC"
+		///command "presetD"
+		///command "presetE"
+		///command "presetF"
+        ///command "presetTop"
+        ///command "presetBottom"
+        ///command "presetLeft"
+        ///command "presetRight"
+        ///command "presetCenter"
+        ///command "setPreset", ["string"]
         
-        command "reboot"
-        command "checkMotionStatus"
-        command "registerMotionCallback", ["string"]
-        command "deRegisterMotionCallback"
-        command "motionCallbackNotify"
+        ///command "reboot"
+        ///command "setReboot", ["string"]
+        
+        ///command "checkMotionStatus"
+        ///command "registerMotionCallback", ["string"]
+        ///command "deRegisterMotionCallback"
+        ///command "motionCallbackNotify"
+        
         command "startVideo"
         command "setHiRes"
         command "setLowRes"
@@ -214,7 +221,8 @@ metadata {
     
     preferences {
         input title: "", description: "Foscam Device Handler v${clientVersion()}", displayDuringSetup: true, type: "paragraph", element: "paragraph"
-        input title: "", description: "This IP is used for camera communication and video streaming. NOTE: If you're using a public IP/Hostname configure your routers to have port forwarding", displayDuringSetup: true, type: "paragraph", element: "paragraph"
+        
+        input title: "", description: "This is used for camera communication. NOTE: If you're using a public IP/Hostname configure your routers for port forwarding", displayDuringSetup: true, type: "paragraph", element: "paragraph"
         input("ip", "string", title:"Camera IP address/Public hostname", description: "Camera IP address or DNS hostname", required: true, displayDuringSetup: true)
         input("port", "number", title:"Camera port", description: "Camera port", defaultValue: "88" , required: false, displayDuringSetup: true) // required false for now due to bug in ST Android app requiring minimum 3 digits for a  number inputs for some tablets
         input("username", "string", title:"Camera Administrator username (case sensitive)", description: "Camera Administrative rights username (case sensitive)", required: true, displayDuringSetup: true)
@@ -222,25 +230,26 @@ metadata {
         input("hdcamera", "bool", title:"Enable this if the camera is a HD model (720p or higher)?", description: "HD camera", required: false, displayDuringSetup: true)
         input("cameraModel", "enum", title:"Select your camera model", multiple: false, defaultValue: "Others", options: ["Others":"Other Foscam","Amba":"(Ambarella)C2/R2/R2E/R4/Z2/FI99xx"], description: "Select Other Foscam if your camera model isn't listed here", required: true, displayDuringSetup: true)
         
-        input title: "", description: "If your camera supports ONVIF in your Camera web settings -> Network page: enable it, set the RTSP port to 554 and enter it below to use RTSP live streaming", displayDuringSetup: true, type: "paragraph", element: "paragraph", required: true
-        input("rtspport", "number", title:"RTSP port", description: "RTSP port", required: false, displayDuringSetup: true)
-        input title: "", description: "(Optional) Use separate IP/hostname for video streaming. NOTE: If you're using a public IP/Hostname configure your routers to have port forwarding", displayDuringSetup: true, type: "paragraph", element: "paragraph"
-        input("externalIp", "string", title:"Video Streaming IP address/hostname", description: "External IP address or DNS hostname", required: false, displayDuringSetup: true)
+        //input title: "", description: "If your camera supports ONVIF in your Camera web settings -> Network page: enable it, set the RTSP port to 554 and enter it below to use RTSP live streaming", displayDuringSetup: true, type: "paragraph", element: "paragraph", required: true
+        //input("rtspport", "number", title:"RTSP port", description: "RTSP port", required: false, displayDuringSetup: true)
+        //input title: "", description: "(Optional) Use separate IP/hostname for video streaming. NOTE: If you're using a public IP/Hostname configure your routers to have port forwarding", displayDuringSetup: true, type: "paragraph", element: "paragraph"
+        //input("externalIp", "string", title:"Video Streaming IP address/hostname", description: "External IP address or DNS hostname", required: false, displayDuringSetup: true)
 
         // Use Camera Settings instead of forcing them here
         //input("mirror", "bool", title:"Mirror", description: "Mirror image? (Horizontal)?", required: false, displayDuringSetup: true)
         //input("flip", "bool", title:"Flip", description: "Flip image? (Vertical)?", required: false, displayDuringSetup: true)
         
-        input title: "", description: "Configure the motion/sound detection features of the camera. NOTE: Sound detection is very sensitive on Foscam cameras", displayDuringSetup: true, type: "paragraph", element: "paragraph"
+        input title: "", description: "Configure motion/sound detection features of the camera. NOTE: Sound detection is very sensitive on Foscam cameras", displayDuringSetup: true, type: "paragraph", element: "paragraph"
         input("motionLevel", "enum", title:"Motion detection sensitivity level", multiple: false, defaultValue: "Medium", options: ["Lowest","Lower","Low","Medium","High"], description: "Alarm Motion Sensitivity Level", required: true, displayDuringSetup: true)
         input("soundAlarm", "bool", title:"Enable sound detection", description: "Report audio events as motion events", defaultValue: false, required: false, displayDuringSetup: true)
         input("soundLevel", "enum", title:"Sound detection sensitivity level", multiple: false, defaultValue: "Lowest", options: ["Lowest","Lower","Low","Medium","High"], description: "Alarm Sound Sensitivity Level", required: true, displayDuringSetup: true)
-        input title: "", description: "To use eMail notifications configure the eMail settings on your camera using the Foscam app/camera web settings", displayDuringSetup: true, type: "paragraph", element: "paragraph"
-        input("motionEMail", "bool", title:"Intruder detected -> Send eMail", description: "Send e-Mail when motion is detected", defaultValue: true, required: false, displayDuringSetup: true)
-        input("motionSnap", "bool", title:"Intruder detected -> Take picture (HD cameras only)", description: "Take a picture when motion is detected", defaultValue: true, required: false, displayDuringSetup: true)
-        input("motionRecord", "bool", title:"Intruder detected -> Record video (HD cameras only)", description: "Record a video when motion is detected", defaultValue: true, required: false, displayDuringSetup: true)
-        input("motionRing", "bool", title:"Intruder detected -> Turn on camera audio alarm (HD cameras only)", description: "Sound local ring alarm when motion is detected", defaultValue: true, required: false, displayDuringSetup: true)
-        //input("reArmInterval", "enum", title:"Intruder detected -> Re-Arm interval (HD cameras only)", multiple: false, defaultValue: "15s", options: ["5s","6s","7s","8s","9s","10s","11s","12s","13s","14s","15s"], description: "Alarm Motion Snap Interval in seconds", required: true, displayDuringSetup: true)
+        
+        input title: "", description: "Configure built in camera actions on motion detection. NOTE: To use eMail notifications configure the eMail settings on your camera using the Foscam app/camera web settings", displayDuringSetup: true, type: "paragraph", element: "paragraph"
+        input("motionEMail", "bool", title:"Motion detected -> Send eMail", description: "Send e-Mail when motion is detected", defaultValue: true, required: false, displayDuringSetup: true)
+        input("motionSnap", "bool", title:"Motion detected -> Take picture (HD cameras only)", description: "Take a picture when motion is detected", defaultValue: true, required: false, displayDuringSetup: true)
+        input("motionRecord", "bool", title:"Motion detected -> Record video (HD cameras only)", description: "Record a video when motion is detected", defaultValue: true, required: false, displayDuringSetup: true)
+        input("motionRing", "bool", title:"Motion detected -> Turn on camera audio alarm (HD cameras only)", description: "Sound local ring alarm when motion is detected", defaultValue: true, required: false, displayDuringSetup: true)
+        //input("reArmInterval", "enum", title:"Motion detected -> Re-Arm interval (HD cameras only)", multiple: false, defaultValue: "15s", options: ["5s","6s","7s","8s","9s","10s","11s","12s","13s","14s","15s"], description: "Alarm Motion Snap Interval in seconds", required: true, displayDuringSetup: true)
         
         input title: "", description: "Configure the following 2 options only if your camera supports enabling/disabling Video motion and (Human) PIR motion detection separately", displayDuringSetup: false, type: "paragraph", element: "paragraph"
         input("motionAlarmEnable", "bool", title:"Enable video motion detection", description: "Enable camera video motion detection", defaultValue: true, required: false, displayDuringSetup: false)
@@ -257,8 +266,8 @@ metadata {
         input("humanSensitivity", "number", title:"Human detection sensitivity", description: "Sensitivity for detecting humans", defaultValue: "100", range: "0..100", required: false, displayDuringSetup: false)
         input("humanCountEnable", "bool", title:"Enable people counting", description: "Count humans detected", defaultValue: false, required: false, displayDuringSetup: false)
         input("humanBoxingEnable", "bool", title:"Enable bounding box", description: "Detect human boundaries", defaultValue: false, required: false, displayDuringSetup: false)
-        input("uploadCloud", "bool", title:"Intruder detected -> Upload to cloud", description: "Upload picture and recording to Foscam cloud", defaultValue: false, required: false, displayDuringSetup: false)
-        input("pushFoscamPhoneApp", "bool", title:"Intruder detected -> Push message to Foscam app", description: "Push notification to Foscam native phone app", defaultValue: false, required: false, displayDuringSetup: false)
+        input("uploadCloud", "bool", title:"Motion detected -> Upload to cloud", description: "Upload picture and recording to Foscam cloud", defaultValue: false, required: false, displayDuringSetup: false)
+        input("pushFoscamPhoneApp", "bool", title:"Motion detected -> Push message to Foscam app", description: "Push notification to Foscam native phone app", defaultValue: false, required: false, displayDuringSetup: false)
 	}
 
 	tiles(scale: 2) {
@@ -278,7 +287,6 @@ metadata {
                 attributeState "...", label: "..."
             }
         }
-        
         multiAttributeTile(name: "videoPlayer", type: "videoPlayer", width: 6, height: 4) {
             tileAttribute("device.camera", key: "CAMERA_STATUS") {
 				attributeState("on", label: "Active", icon: "st.camera.dlink-hdpan", action: "", backgroundColor: "#79b821", defaultState: true)
@@ -286,18 +294,15 @@ metadata {
 				attributeState("restarting", label: "Connecting", icon: "st.camera.dlink-hdpan", backgroundColor: "#53a7c0")
 				attributeState("unavailable", label: "Click here to connect", icon: "st.camera.dlink-hdpan", action: "", backgroundColor: "#F22000")
 			}
-
 			tileAttribute("device.errorMessage", key: "CAMERA_ERROR_MESSAGE") {
 				attributeState("errorMessage", label: "", value: "", defaultState: true)
 			}
-
 			tileAttribute("device.camera", key: "PRIMARY_CONTROL") {
 				attributeState("on", label: "Active", icon: "st.camera.dlink-hdpan", backgroundColor: "#79b821")
 				attributeState("off", label: "Inactive", icon: "st.camera.dlink-hdpan", backgroundColor: "#ffffff", defaultState: true)
 				attributeState("restarting", label: "Connecting", icon: "st.camera.dlink-hdpan", backgroundColor: "#53a7c0")
 				attributeState("unavailable", label: "Click here to connect", icon: "st.camera.dlink-hdpan", backgroundColor: "#F22000")
 			}
-
             tileAttribute ("device.ledStatus", key: "SECONDARY_CONTROL") {
                 attributeState "autoOn", label: "Auto", action: "toggleLED", icon: "st.lights.multi-light-bulb-on", backgroundColor: "#79b821", nextState: "..."
                 attributeState "autoOff", label: "Auto", action: "toggleLED", icon: "st.lights.multi-light-bulb-on", backgroundColor: "#9ceaf0", nextState: "..."
@@ -305,15 +310,12 @@ metadata {
                 attributeState "off", label: "Off", action: "toggleLED", icon: "st.lights.multi-light-bulb-off", backgroundColor: "#FFFFFF", nextState: "..."
                 attributeState "...", label: "..."
             }
-
             tileAttribute("device.startLive", key: "START_LIVE") {
 				attributeState("live", action: "startVideo", defaultState: true)
 			}
-
 			tileAttribute("device.stream", key: "STREAM_URL") {
 				attributeState("activeURL", defaultState: true)
 			}
-
 			/*tileAttribute("device.profile", key: "STREAM_QUALITY") {
 				attributeState("hi", label: "Hi-Res", action: "setHiRes", defaultState: true)
 				attributeState("low", label: "Low-Res", action: "setLowRes")
@@ -323,7 +325,6 @@ metadata {
 				attributeState("betaLogo", label: "", value: "", defaultState: true)
 			}*/
 		}
-		
         standardTile("alarmStatusA", "device.alarmStatus", width: 2, height: 2, canChangeIcon: false, canChangeBackground: false, decoration: "flat") {
             state "off", label: "Off", action: "toggleAlarm", icon: "st.camera.dlink-hdpan", backgroundColor: "#FFFFFF", nextState: "...", defaultState: true
             state "on", label: "On", action: "toggleAlarm", icon: "st.camera.dlink-hdpan",  backgroundColor: "#00a0dc", nextState: "..."
@@ -331,15 +332,13 @@ metadata {
             state "error", label: "ERROR", action: "", icon: "st.camera.dlink-hdpan",  backgroundColor: "#FF3333"
             state "...", label: "..."
         }
-        
-        carouselTile("cameraDetails", "device.image", width: 4, height: 2) { }
-
+        carouselTile("cameraDetails", "device.image", width: 4, height: 2) {
+        }
 		standardTile("take", "device.image", width: 2, height: 2, canChangeIcon: false, canChangeBackground: false, decoration: "flat") {
 			state "default", label: "Snap", action: "Image Capture.take", icon: "st.camera.camera", backgroundColor: "#FFFFFF", nextState: "taking", defaultState: true
 			state "image", label: "Snap", action: "Image Capture.take", icon: "st.camera.camera", backgroundColor: "#FFFFFF", nextState: "taking"
 			state "taking", label:'Taking', action: "", icon: "st.camera.take-photo", backgroundColor: "#53a7c0"
 		}
-
         standardTile("ledStatus", "device.ledStatus", width: 2, height: 2, canChangeIcon: false, canChangeBackground: false, decoration: "flat") {
           state "autoOn", label: "Auto", action: "toggleLED", icon: "st.lights.multi-light-bulb-on", backgroundColor: "#79b821", nextState: "...", defaultState: true
           state "autoOff", label: "Auto", action: "toggleLED", icon: "st.lights.multi-light-bulb-on", backgroundColor: "#9ceaf0", nextState: "..."
@@ -347,128 +346,122 @@ metadata {
           state "off", label: "Off", action: "toggleLED", icon: "st.lights.multi-light-bulb-off", backgroundColor: "#FFFFFF", nextState: "..."
           state "...", label: "..."
         }
-
-		standardTile("preset1", "device.preset1", width: 1, height: 1, canChangeIcon: false, canChangeBackground: false, decoration: "flat") {
-			state "default", label: 'Preset ${currentValue}', action: "preset1", icon: "", defaultState: true
+		standardTile("presetA", "device.presetA", width: 1, height: 1, canChangeIcon: false, canChangeBackground: false, decoration: "flat") {
+			state "default", label: 'Preset ${currentValue}', action: "presetA", icon: "", defaultState: true
 		}
-
-		standardTile("preset2", "device.preset2", width: 1, height: 1, canChangeIcon: false, canChangeBackground: false, decoration: "flat") {
-			state "default", label: 'Preset ${currentValue}', action: "preset2", icon: "", defaultState: true
+		standardTile("presetB", "device.presetB", width: 1, height: 1, canChangeIcon: false, canChangeBackground: false, decoration: "flat") {
+			state "default", label: 'Preset ${currentValue}', action: "presetB", icon: "", defaultState: true
 		}
-
-		standardTile("preset3", "device.preset3", width: 1, height: 1, canChangeIcon: false, canChangeBackground: false, decoration: "flat") {
-			state "default", label: 'Preset ${currentValue}', action: "preset3", icon: "", defaultState: true
+		standardTile("presetC", "device.presetC", width: 1, height: 1, canChangeIcon: false, canChangeBackground: false, decoration: "flat") {
+			state "default", label: 'Preset ${currentValue}', action: "presetC", icon: "", defaultState: true
 		}
-        
-		standardTile("preset4", "device.preset4", width: 1, height: 1, canChangeIcon: false, canChangeBackground: false, decoration: "flat") {
-			state "default", label: 'Preset ${currentValue}', action: "preset4", icon: "", defaultState: true
+		standardTile("presetD", "device.presetD", width: 1, height: 1, canChangeIcon: false, canChangeBackground: false, decoration: "flat") {
+			state "default", label: 'Preset ${currentValue}', action: "presetD", icon: "", defaultState: true
 		}
-        
-		standardTile("preset5", "device.preset5", width: 1, height: 1, canChangeIcon: false, canChangeBackground: false, decoration: "flat") {
-			state "default", label: 'Preset ${currentValue}', action: "preset5", icon: "", defaultState: true
+		standardTile("presetE", "device.presetE", width: 1, height: 1, canChangeIcon: false, canChangeBackground: false, decoration: "flat") {
+			state "default", label: 'Preset ${currentValue}', action: "presetE", icon: "", defaultState: true
 		}
-        
-		standardTile("preset6", "device.preset6", width: 1, height: 1, canChangeIcon: false, canChangeBackground: false, decoration: "flat") {
-			state "default", label: 'Preset ${currentValue}', action: "preset6", icon: "", defaultState: true
+		standardTile("presetF", "device.presetF", width: 1, height: 1, canChangeIcon: false, canChangeBackground: false, decoration: "flat") {
+			state "default", label: 'Preset ${currentValue}', action: "presetF", icon: "", defaultState: true
 		}
-        
 		standardTile("presettop", "device.presetTop", width: 1, height: 1, canChangeIcon: false, canChangeBackground: false, decoration: "flat") {
 			state "default", label: '', action: "", icon: "", defaultState: true
 			state "topmost", label: 'Top Most', action: "presetTop", icon: "", nextState: "topmost"
 		}
-
 		standardTile("presetbottom", "device.presetBottom", width: 1, height: 1, canChangeIcon: false, canChangeBackground: false, decoration: "flat") {
 			state "default", label: '', action: "", icon: "", defaultState: true
 			state "bottommost", label: 'Bottom Most', action: "presetBottom", icon: "", nextState: "bottommost"
 		}
-
 		standardTile("presetleft", "device.presetLeft", width: 1, height: 1, canChangeIcon: false, canChangeBackground: false, decoration: "flat") {
 			state "default", label: '', action: "", icon: "", defaultState: true
 			state "leftmost", label: 'Left Most', action: "presetLeft", icon: "", nextState: "leftmost"
 		}
-
 		standardTile("presetright", "device.presetRight", width: 1, height: 1, canChangeIcon: false, canChangeBackground: false, decoration: "flat") {
 			state "default", label: '', action: "", icon: "", defaultState: true
 			state "rightmost", label: 'Right Most', action: "presetRight", icon: "", nextState: "rightmost"
 		}
-
 		standardTile("horizontalcruise", "device.horizontalcruise", width: 1, height: 1, canChangeIcon: false, canChangeBackground: false, decoration: "flat") {
 			state "default", label: 'Horizontal Cruise', action: "horizontalCruise", icon: "", defaultState: true
 		}
-
 		standardTile("verticalcruise", "device.verticalCruise", width: 1, height: 1, canChangeIcon: false, canChangeBackground: false, decoration: "flat") {
 			state "default", label: 'Vertical Cruise', action: "verticalCruise", icon: "", defaultState: true
 		}
- 
  		standardTile("stopcruise", "device.image", width: 1, height: 1, canChangeIcon: false, canChangeBackground: false, decoration: "flat") {
 			state "default", label: "Stop Cruise", action: "stopCruise", icon: "", defaultState: true
 		}
-
 		standardTile("leftUp", "device.image", width: 1, height: 1, canChangeIcon: false, canChangeBackground: false, decoration: "flat") {
-			state "default", label: "", action: "leftUp", icon: "http://smartthings.rboyapps.com/images/arrowTopLeft.png", defaultState: true
+			state "default", label: "", action: "leftUp", icon: "https://www.rboyapps.com/images/arrowTopLeft.png", defaultState: true
 		}
-
 		standardTile("leftDown", "device.image", width: 1, height: 1, canChangeIcon: false, canChangeBackground: false, decoration: "flat") {
-			state "default", label: "", action: "leftDown", icon: "http://smartthings.rboyapps.com/images/arrowBottomLeft.png", defaultState: true
+			state "default", label: "", action: "leftDown", icon: "https://www.rboyapps.com/images/arrowBottomLeft.png", defaultState: true
 		}
-
 		standardTile("rightUp", "device.image", width: 1, height: 1, canChangeIcon: false, canChangeBackground: false, decoration: "flat") {
-			state "default", label: "", action: "rightUp", icon: "http://smartthings.rboyapps.com/images/arrowTopRight.png", defaultState: true
+			state "default", label: "", action: "rightUp", icon: "https://www.rboyapps.com/images/arrowTopRight.png", defaultState: true
 		}
-
 		standardTile("rightDown", "device.image", width: 1, height: 1, canChangeIcon: false, canChangeBackground: false, decoration: "flat") {
-			state "default", label: "", action: "rightDown", icon: "http://smartthings.rboyapps.com/images/arrowBottomRight.png", defaultState: true
+			state "default", label: "", action: "rightDown", icon: "https://www.rboyapps.com/images/arrowBottomRight.png", defaultState: true
 		}
-
 		standardTile("left", "device.image", width: 1, height: 1, canChangeIcon: false,  canChangeBackground: false, decoration: "flat") {
-			state "default", label: "", action: "left", icon: "http://smartthings.rboyapps.com/images/arrowLeft.png", defaultState: true
+			state "default", label: "", action: "left", icon: "https://www.rboyapps.com/images/arrowLeft.png", defaultState: true
 		}
-
 		standardTile("right", "device.image", width: 1, height: 1, canChangeIcon: false,  canChangeBackground: false, decoration: "flat") {
-			state "default", label: "", action: "right", icon: "http://smartthings.rboyapps.com/images/arrowRight.png", defaultState: true
+			state "default", label: "", action: "right", icon: "https://www.rboyapps.com/images/arrowRight.png", defaultState: true
 		}
-
 		standardTile("up", "device.image", width: 1, height: 1, canChangeIcon: false, canChangeBackground: false, decoration: "flat") {
-			state "default", label: "", action: "up", icon: "http://smartthings.rboyapps.com/images/arrowTop.png", defaultState: true
+			state "default", label: "", action: "up", icon: "https://www.rboyapps.com/images/arrowTop.png", defaultState: true
 		}
-
 		standardTile("down", "device.image", width: 1, height: 1, canChangeIcon: false, canChangeBackground: false, decoration: "flat") {
-			state "default", label: "", action: "down", icon: "http://smartthings.rboyapps.com/images/arrowBottom.png", defaultState: true
+			state "default", label: "", action: "down", icon: "https://www.rboyapps.com/images/arrowBottom.png", defaultState: true
 		}
-
 		standardTile("center", "device.image", width: 1, height: 1, canChangeIcon: false,  canChangeBackground: false, decoration: "flat") {
 			state "default", label: "Center", action: "center", icon: "", defaultState: true
 		}
-
         standardTile("refresh", "device.status", width: 2, height: 2, inactiveLabel: false, decoration: "flat") {
         	state "default", action:"refresh.refresh", icon:"st.secondary.refresh", defaultState: true
         }
-        
         standardTile("blank", "device.image", width: 1, height: 1, canChangeIcon: false,  canChangeBackground: false, decoration: "flat") {
         	state "default", label: "", action: "", icon: "", backgroundColor: "#FFFFFF", defaultState: true
         }
-        
         standardTile("blank2x", "device.image", width: 2, height: 2, canChangeIcon: false,  canChangeBackground: false, decoration: "flat") {
         	state "default", label: "", action: "", icon: "", backgroundColor: "#FFFFFF", defaultState: true
         }
-        
         standardTile("reboot", "device.image", width: 1, height: 1, inactiveLabel: false, decoration: "flat") {
       		state "default", label: "reboot", action: "reboot", icon: "st.quirky.spotter.quirky-spotter-plugged", defaultState: true
     	}
 
         main "summary", "videoPlayer"
-        details(["ledStatus", "refresh", "alarmStatusA", "cameraDetails", "take", "videoPlayer", "preset1", "preset2", "preset3", "preset4", "preset5", "preset6", "leftUp", "up", "rightUp", "horizontalcruise", "stopcruise", "verticalcruise", "left", "center", "right", "presetleft", "presettop", "presetright", "leftDown", "down", "rightDown", "blank", "presetbottom", "reboot"])
+        details(["ledStatus", "refresh", "alarmStatusA", "cameraDetails", "take", "videoPlayer", "presetA", "presetB", "presetC", "presetD", "presetE", "presetF", "leftUp", "up", "rightUp", "horizontalcruise", "stopcruise", "verticalcruise", "left", "center", "right", "presetleft", "presettop", "presetright", "leftDown", "down", "rightDown", "blank", "presetbottom", "reboot"])
 	}
 }
 
-import groovy.json.JsonSlurper
 include 'asynchttp'
+import groovy.json.JsonSlurper
+import groovy.transform.Field
+
+@Field final int RESET_DELAY = 2
+@Field final String RESET_PRESET_STRING = " "
+@Field final String RESET_CRUISE_STRING = " "
+@Field final String RESET_MOVEMENT_STRING = " "
+
+// Sent delayed event
+def delayedEvent(data) {
+    log.trace "Sending delayed event: $data"
+    sendEvent(data)
+}
 
 // Default milli-seconds delay between sending commands so the camera can respond
 private getDelayInterval() { 200 }
 
 def installed() {
     log.trace "Installed called settings: $settings"
+    sendEvent(name: "alarmStatus", value: "off", displayed: false)
+    sendEvent(name: "alarm", value: "off", displayed: false)
+    sendEvent(name: "switch", value: "off", displayed: false)
+    sendEvent(name: "motion", value: "inactive", displayed: false)
+    sendEvent(name: "lastPreset", value: RESET_PRESET_STRING, displayed: false)
+    sendEvent(name: "lastMovement", value: RESET_MOVEMENT_STRING, displayed: false)
+    sendEvent(name: "lastCruise", value: RESET_CRUISE_STRING, displayed: false)
+    sendEvent(name: "reboot", value: "ready", displayed: false)
     runIn(1, initialize) // It's called multiple times just do it one
 }
 
@@ -479,12 +472,13 @@ def updated() {
 }
 
 def uninstalled() {
-    log.trace "Unnstalled called settings: $settings"
+    log.warn "Uninstalled called settings"
+    parent?.cameraUninstalled(this)
 }
 
 def initialize() {
-    // Device-Watch simply pings if no device events received for checkInterval duration of 32min = 2 * 15min + 2min lag time
-	sendEvent(name: "checkInterval", value: 2 * 15 * 60 + 2 * 60, displayed: false, data: [protocol: "lan", hubHardwareId: device.hub.hardwareID])
+    // Device-Watch simply pings if no device events received for checkInterval duration of 2 hours
+	sendEvent(name: "checkInterval", value: 2 * 60 * 60, displayed: false, data: [protocol: "lan", hubHardwareId: device.hub.hardwareID])
 
 	try {
         response(refresh())
@@ -494,7 +488,15 @@ def initialize() {
 }
 
 def ping() {
-	refresh()
+	log.trace "Ping called"
+    def cmd
+    if (hdcamera) {
+	    cmd = "cmd=getDevState" // Motion detection/alarm status
+    } else {
+        cmd = "/get_status.cgi?" // Motion Detection Status
+    }
+    
+    sendCmd(cmd, true) // We're pinging dont' send other events
 }
 
 //START VIDEO
@@ -523,8 +525,8 @@ def getOutHomeURL() {
 
 def setHiRes() {
     log.debug "Setting hi resolution stream"
-    def cleanIP = ip.toLowerCase().replace("https://", "").replace("http://", "") // Sanitize the hostname/IP address, remove leading http(s)
-    def cleanIPOut = (externalIp ?: ip).toLowerCase().replace("https://", "").replace("http://", "") // Sanitize the hostname/IP address, remove leading http(s)
+    def cleanIP = ip?.toLowerCase()?.replace("https://", "")?.replace("http://", "") // Sanitize the hostname/IP address, remove leading http(s)
+    def cleanIPOut = (externalIp ?: ip)?.toLowerCase()?.replace("https://", "")?.replace("http://", "") // Sanitize the hostname/IP address, remove leading http(s)
     if (hdcamera) {
         log.debug "Enabling HiRes Stream type 0 for HD Camera"
         sendCmd("cmd=setMainVideoStreamType&streamType=0") // TODO: Should we always use stream 0?
@@ -548,8 +550,8 @@ private void setSubStreamingMode(mjpegEnable) {
 
 def setLowRes() {
     log.debug "Setting low resolution stream"
-    def cleanIP = ip.toLowerCase().replace("https://", "").replace("http://", "") // Sanitize the hostname/IP address, remove leading http(s)
-    def cleanIPOut = (externalIp ?: ip).toLowerCase().replace("https://", "").replace("http://", "") // Sanitize the hostname/IP address, remove leading http(s)
+    def cleanIP = ip?.toLowerCase()?.replace("https://", "")?.replace("http://", "") // Sanitize the hostname/IP address, remove leading http(s)
+    def cleanIPOut = (externalIp ?: ip)?.toLowerCase()?.replace("https://", "")?.replace("http://", "") // Sanitize the hostname/IP address, remove leading http(s)
     if (hdcamera) { // The newer HD cameras can operate as MPEG or h.264
         setSubStreamingMode(mjpeg) // Configure h.264 or MJPEG for sub streaming video. MJPEG required for compatibility with SmartTiles
         
@@ -604,6 +606,23 @@ def startVideo() {
 }
 //END START VIDEO
 
+def startStream() { // Video Stream capability
+	log.warn "startStream called, stream: ${device.currentValue("stream")}"
+}
+
+def stopStream() { // Video Stream capability
+	log.warn "stopStream called, stream: ${device.currentValue("stream")}"
+}
+
+def mute() { // Video Camera capability commands: mute, unmute, flip, on, off
+	log.warn "mute called, settings: ${device.currentValue("settings")}, mute: ${device.currentValue("mute")}, camera: ${device.currentValue("camera")}, statusMessage: ${device.currentValue("statusMessage")}"
+}
+
+def capture(startTime, captureTime, endTime, correlationId, reason) { // Video capture capability
+    log.debug "Capturing Video: startTime Iso8601Date: $startTime, captureTime Iso8601Date: $captureTime, endTime Iso8601Date: $endTime, correlationId: $correlationId, reason: $reason\nstream: ${device.currentValue("stream")}, clip: ${device.currentValue("clip")}"
+}
+
+
 //TAKE PICTURE
 def take() {
 	log.debug("Taking Photo")
@@ -617,6 +636,12 @@ def take() {
     } else {
     	sendCmd("/snapshot.cgi?")
     }
+}
+
+def take(correlationId, reason) { // Image Capture capability
+	log.debug "Capturing Image: correlationId: $correlationId, reason: $reason\nimage URL: ${device.currentValue("image")}, encrypted: ${device.currentValue("encrypted")}, captureTime Iso8601Date: ${device.currentValue("captureTime")}"
+    
+    take()
 }
 //END TAKE PICTURE
 
@@ -682,6 +707,22 @@ def hdDetect(data) {
     }
 }
 
+def setAlarm(mode) {
+    log.info "Setting Alarm detection mode to: ${mode}"
+    
+    switch (mode) {
+        case "off":
+        	alarmOff()
+            break
+        case "on":
+        	alarmOn()
+            break
+        default:
+        	log.error "Invalid Alarm detection mode: ${mode}"
+            break
+    }
+}
+
 def alarmOn() {
 	log.debug "Enabling Motion Detection"
 
@@ -692,7 +733,7 @@ def alarmOn() {
         } else {
             sendCmd("cmd=getMotionDetectConfig")
         }
-        runIn(1, hdDetect, [data: [on: true], overwrite: true]) // Turn on motion detection after giving the camera time to respond with the latest motion detection settings, only one active action at a time
+        runIn(0, hdDetect, [data: [on: true], overwrite: true]) // Turn on motion detection after giving the camera time to respond with the latest motion detection settings, only one active action at a time
     } else {
     	sendCmds([("/set_alarm.cgi?motion_armed=1&motion_sensitivity=${getMotionLevel(motionLevel)}&motion_compensation=${lightCompensation ? "1" : "0"}&sounddetect_armed=${soundAlarm ? "1" : "0"}&sounddetect_sensitivity=${getSoundLevel(soundLevel)}&mail=${motionEMail ? "1" : "0"}&"), ("/get_status.cgi?"), ("/get_params.cgi?")])
     }
@@ -708,7 +749,7 @@ def alarmOff() {
         } else {
             sendCmd("cmd=getMotionDetectConfig")
         }
-        runIn(1, hdDetect, [data: [off: true], overwrite: true]) // Turn it off offline so it cancels any pending actions
+        runIn(0, hdDetect, [data: [off: true], overwrite: true]) // Turn it off offline so it cancels any pending actions
     } else {
     	sendCmds([("/set_alarm.cgi?motion_armed=0&sounddetect_armed=0&"), status]) // Get a full status update after turning off
     }
@@ -717,6 +758,25 @@ def alarmOff() {
 //END ALARM ACTIONS
 
 //LED ACTIONS
+def setLed(mode) {
+    log.info "Setting LED to: ${mode}"
+    
+    switch (mode) {
+        case "off":
+        	ledOff()
+            break
+        case "on":
+        	ledOn()
+            break
+        case "auto":
+        	ledAuto()
+            break
+        default:
+        	log.error "Invalid LED mode: ${mode}"
+            break
+    }
+}
+
 //Toggle LED's
 def toggleLED() {
 	log.debug("Toggle LED")
@@ -768,9 +828,61 @@ def ledAuto() {
 //END LED ACTIONS
 
 //PRESET ACTIONS
+def setPreset(mode) {
+    log.info "Setting preset to: ${mode}"
+    
+    switch (mode) {
+        case "presetA":
+        	presetA()
+            break
+        case "presetB":
+        	presetB()
+            break
+        case "presetC":
+        	presetC()
+            break
+        case "presetD":
+        	presetD()
+            break
+        case "presetE":
+        	presetE()
+            break
+        case "presetF":
+        	presetF()
+            break
+        case "presetTop":
+        	presetTop()
+            break
+        case "presetBottom":
+        	presetBottom()
+            break
+        case "presetLeft":
+        	presetLeft()
+            break
+        case "presetRight":
+        	presetRight()
+            break
+        case "presetCenter":
+        	presetCenter()
+        	break
+        default:
+        	log.error "Invalid preset: ${mode}"
+            break
+    }
+}
+
+def presetCenter() {
+	log.debug("Preset Center Selected")
+    sendEvent(name: "lastPreset", value: "presetCenter", isStateChange: true, descriptionText: "Moving to preset Center")
+    runIn(RESET_DELAY, delayedEvent, [data: [name: "lastPreset", value: RESET_PRESET_STRING, isStateChange: true]])
+    center()
+}
+
 def presetTop() {
 	log.debug("Preset TopMost Selected")
 	if(hdcamera) {
+        sendEvent(name: "lastPreset", value: "presetTop", isStateChange: true, descriptionText: "Moving to preset Top")
+        runIn(RESET_DELAY, delayedEvent, [data: [name: "lastPreset", value: RESET_PRESET_STRING, isStateChange: true]])
 		sendCmd("cmd=ptzGotoPresetPoint&name=${URLEncoder.encode("TopMost")}")
     } else {
     	log.warn "Not supported for SD cameras"
@@ -780,6 +892,8 @@ def presetTop() {
 def presetBottom() {
 	log.debug("Preset BottomMost Selected")
 	if(hdcamera) {
+        sendEvent(name: "lastPreset", value: "presetBottom", isStateChange: true, descriptionText: "Moving to preset Bottom")
+        runIn(RESET_DELAY, delayedEvent, [data: [name: "lastPreset", value: RESET_PRESET_STRING, isStateChange: true]])
 		sendCmd("cmd=ptzGotoPresetPoint&name=${URLEncoder.encode("BottomMost")}")
     } else {
     	log.warn "Not supported for SD cameras"
@@ -789,6 +903,8 @@ def presetBottom() {
 def presetRight() {
 	log.debug("Preset RightMost Selected")
 	if(hdcamera) {
+        sendEvent(name: "lastPreset", value: "presetRight", isStateChange: true, descriptionText: "Moving to preset Right")
+        runIn(RESET_DELAY, delayedEvent, [data: [name: "lastPreset", value: RESET_PRESET_STRING, isStateChange: true]])
 		sendCmd("cmd=ptzGotoPresetPoint&name=${URLEncoder.encode("RightMost")}")
     } else {
     	log.warn "Not supported for SD cameras"
@@ -798,61 +914,75 @@ def presetRight() {
 def presetLeft() {
 	log.debug("Preset LeftMost Selected")
 	if(hdcamera) {
+        sendEvent(name: "lastPreset", value: "presetLeft", isStateChange: true, descriptionText: "Moving to preset Left")
+        runIn(RESET_DELAY, delayedEvent, [data: [name: "lastPreset", value: RESET_PRESET_STRING, isStateChange: true]])
 		sendCmd("cmd=ptzGotoPresetPoint&name=${URLEncoder.encode("LeftMost")}")
     } else {
     	log.warn "Not supported for SD cameras"
     }
 }
 
-def preset1() {
-	log.debug("Preset 1 Selected - ${device.currentValue("preset1")}")
+def presetA() {
+	log.debug("Preset 1 Selected - ${device.currentValue("presetA")}")
+    sendEvent(name: "lastPreset", value: "presetA", isStateChange: true, descriptionText: "Moving to preset 1")
+    runIn(RESET_DELAY, delayedEvent, [data: [name: "lastPreset", value: RESET_PRESET_STRING, isStateChange: true]])
 	if(hdcamera) {
-		sendCmds([("cmd=ptzGotoPresetPoint&name=${URLEncoder.encode(device.currentValue("preset1"))}"), status]) // Update UI
+		sendCmds([("cmd=ptzGotoPresetPoint&name=${URLEncoder.encode(device.currentValue("presetA"))}"), status]) // Update UI
     } else {
     	sendCmds([("/decoder_control.cgi?command=31&"), status]) // Update UI
     }
 }
 
-def preset2() {
-	log.debug("Preset 2 Selected - ${device.currentValue("preset2")}")
+def presetB() {
+	log.debug("Preset 2 Selected - ${device.currentValue("presetB")}")
+    sendEvent(name: "lastPreset", value: "presetB", isStateChange: true, descriptionText: "Moving to preset 2")
+    runIn(RESET_DELAY, delayedEvent, [data: [name: "lastPreset", value: RESET_PRESET_STRING, isStateChange: true]])
 	if(hdcamera) {
-		sendCmds([("cmd=ptzGotoPresetPoint&name=${URLEncoder.encode(device.currentValue("preset2"))}"), status]) // Update UI
+		sendCmds([("cmd=ptzGotoPresetPoint&name=${URLEncoder.encode(device.currentValue("presetB"))}"), status]) // Update UI
     } else {
     	sendCmds([("/decoder_control.cgi?command=33&"), status]) // Update UI
     }
 }
 
-def preset3() {
-	log.debug("Preset 3 Selected - ${device.currentValue("preset3")}")
+def presetC() {
+	log.debug("Preset 3 Selected - ${device.currentValue("presetC")}")
+    sendEvent(name: "lastPreset", value: "presetC", isStateChange: true, descriptionText: "Moving to preset 3")
+    runIn(RESET_DELAY, delayedEvent, [data: [name: "lastPreset", value: RESET_PRESET_STRING, isStateChange: true]])
 	if(hdcamera) {
-		sendCmds([("cmd=ptzGotoPresetPoint&name=${URLEncoder.encode(device.currentValue("preset3"))}"), status]) // Update UI
+		sendCmds([("cmd=ptzGotoPresetPoint&name=${URLEncoder.encode(device.currentValue("presetC"))}"), status]) // Update UI
     } else {
     	sendCmds([("/decoder_control.cgi?command=35&"), status]) // Update UI
     }
 }
 
-def preset4() {
-	log.debug("Preset 4 Selected - ${device.currentValue("preset4")}")
+def presetD() {
+	log.debug("Preset 4 Selected - ${device.currentValue("presetD")}")
+    sendEvent(name: "lastPreset", value: "presetD", isStateChange: true, descriptionText: "Moving to preset 4")
+    runIn(RESET_DELAY, delayedEvent, [data: [name: "lastPreset", value: RESET_PRESET_STRING, isStateChange: true]])
 	if(hdcamera) {
-		sendCmds([("cmd=ptzGotoPresetPoint&name=${URLEncoder.encode(device.currentValue("preset4"))}"), status]) // Update UI
+		sendCmds([("cmd=ptzGotoPresetPoint&name=${URLEncoder.encode(device.currentValue("presetD"))}"), status]) // Update UI
     } else {
     	sendCmds([("/decoder_control.cgi?command=37&"), status]) // Update UI
     }
 }
 
-def preset5() {
-	log.debug("Preset 5 Selected - ${device.currentValue("preset5")}")
+def presetE() {
+	log.debug("Preset 5 Selected - ${device.currentValue("presetE")}")
+    sendEvent(name: "lastPreset", value: "presetE", isStateChange: true, descriptionText: "Moving to preset 5")
+    runIn(RESET_DELAY, delayedEvent, [data: [name: "lastPreset", value: RESET_PRESET_STRING, isStateChange: true]])
 	if(hdcamera) {
-		sendCmds([("cmd=ptzGotoPresetPoint&name=${URLEncoder.encode(device.currentValue("preset5"))}"), status]) // Update UI
+		sendCmds([("cmd=ptzGotoPresetPoint&name=${URLEncoder.encode(device.currentValue("presetE"))}"), status]) // Update UI
     } else {
     	sendCmds([("/decoder_control.cgi?command=39&"), status]) // Update UI
     }
 }
 
-def preset6() {
-	log.debug("Preset 6 Selected - ${device.currentValue("preset6")}")
+def presetF() {
+	log.debug("Preset 6 Selected - ${device.currentValue("presetF")}")
+    sendEvent(name: "lastPreset", value: "presetF", isStateChange: true, descriptionText: "Moving to preset 6")
+    runIn(RESET_DELAY, delayedEvent, [data: [name: "lastPreset", value: RESET_PRESET_STRING, isStateChange: true]])
 	if(hdcamera) {
-		sendCmds([("cmd=ptzGotoPresetPoint&name=${URLEncoder.encode(device.currentValue("preset6"))}"), status]) // Update UI
+		sendCmds([("cmd=ptzGotoPresetPoint&name=${URLEncoder.encode(device.currentValue("presetF"))}"), status]) // Update UI
     } else {
     	sendCmds([("/decoder_control.cgi?command=41&"), status]) // Update UI
     }
@@ -860,8 +990,29 @@ def preset6() {
 //END PRESET ACTIONS
 
 //CRUISE ACTIONS
+def setCruise(mode) {
+    log.info "Setting cruise to: ${mode}"
+    
+    switch (mode) {
+        case "horizontal":
+        	horizontalCruise()
+            break
+        case "vertical":
+        	verticalCruise()
+            break
+        case "stop":
+        	stopCruise()
+            break
+        default:
+        	log.error "Invalid cruise: ${mode}"
+            break
+    }
+}
+
 def horizontalCruise() {
 	log.debug("Horizontal Cruise Selected")
+    sendEvent(name: "lastCruise", value: "horizontal", isStateChange: true, descriptionText: "Starting horizontal cruise")
+    runIn(RESET_DELAY, delayedEvent, [data: [name: "lastCruise", value: RESET_CRUISE_STRING, isStateChange: true]])
 	if(hdcamera) {
 		sendCmd("cmd=ptzStartCruise&mapName=Horizontal")
     } else {
@@ -871,6 +1022,8 @@ def horizontalCruise() {
 
 def verticalCruise() {
 	log.debug("Vertical Cruise Selected")
+    sendEvent(name: "lastCruise", value: "vertical", isStateChange: true, descriptionText: "Starting vertical cruise")
+    runIn(RESET_DELAY, delayedEvent, [data: [name: "lastCruise", value: RESET_CRUISE_STRING, isStateChange: true]])
 	if(hdcamera) {
 		sendCmd("cmd=ptzStartCruise&mapName=Vertical")
     } else {
@@ -880,6 +1033,8 @@ def verticalCruise() {
 
 def stopCruise() {
 	log.debug("Stop Cruise")
+    sendEvent(name: "lastCruise", value: "stop", isStateChange: true, descriptionText: "Stopping cruise")
+    runIn(RESET_DELAY, delayedEvent, [data: [name: "lastCruise", value: RESET_CRUISE_STRING, isStateChange: true]])
 	if(hdcamera) {
 		sendCmd("cmd=ptzStopRun")
     } else {
@@ -904,7 +1059,46 @@ private getSDPTZ() {
     ]
 }
 
+def setMovement(mode) {
+    log.info "Setting movement to: ${mode}"
+    
+    switch (mode) {
+        case "left":
+        	left()
+            break
+        case "right":
+        	right()
+        	break
+        case "up":
+        	up()
+            break
+        case "down":
+        	down()
+            break
+        case "center":
+        	center()
+        	break
+        case "leftDown":
+        	leftDown()
+            break
+        case "leftUp":
+        	leftUp()
+            break
+        case "rightDown":
+        	rightDown()
+            break
+        case "rightUp":
+        	rightUp()
+            break
+        default:
+        	log.error "Invalid movement: $mode"
+        	break
+    }
+}
+
 def center() {
+    sendEvent(name: "lastMovement", value: "center", isStateChange: true, descriptionText: "Moving to center")
+    runIn(RESET_DELAY, delayedEvent, [data: [name: "lastMovement", value: RESET_MOVEMENT_STRING, isStateChange: true]])
 	if(hdcamera) {
         sendCmd("cmd=ptzReset")
     } else {
@@ -913,6 +1107,8 @@ def center() {
 }
 
 def leftDown() {
+    sendEvent(name: "lastMovement", value: "leftDown", isStateChange: true, descriptionText: "Moving left down")
+    runIn(RESET_DELAY, delayedEvent, [data: [name: "lastMovement", value: RESET_MOVEMENT_STRING, isStateChange: true]])
 	if(hdcamera) { // HD Camera compensates for mirror/flip automatically
         sendCmds([("cmd=ptzMoveBottomLeft"), ("cmd=ptzStopRun")], 500)
     } else {
@@ -929,6 +1125,8 @@ def leftDown() {
 }
 
 def leftUp() {
+    sendEvent(name: "lastMovement", value: "leftUp", isStateChange: true, descriptionText: "Moving left up")
+    runIn(RESET_DELAY, delayedEvent, [data: [name: "lastMovement", value: RESET_MOVEMENT_STRING, isStateChange: true]])
 	if(hdcamera) { // HD Camera compensates for mirror/flip automatically
         sendCmds([("cmd=ptzMoveTopLeft"), ("cmd=ptzStopRun")], 500)
     } else {
@@ -945,6 +1143,8 @@ def leftUp() {
 }
 
 def left() {
+    sendEvent(name: "lastMovement", value: "left", isStateChange: true, descriptionText: "Moving left")
+    runIn(RESET_DELAY, delayedEvent, [data: [name: "lastMovement", value: RESET_MOVEMENT_STRING, isStateChange: true]])
 	if(hdcamera) { // HD Camera compensates for mirror/flip automatically
         sendCmds([("cmd=ptzMoveLeft"), ("cmd=ptzStopRun")], 1000)
     } else {
@@ -957,6 +1157,8 @@ def left() {
 }
 
 def rightDown() {
+    sendEvent(name: "lastMovement", value: "rightDown", isStateChange: true, descriptionText: "Moving right down")
+    runIn(RESET_DELAY, delayedEvent, [data: [name: "lastMovement", value: RESET_MOVEMENT_STRING, isStateChange: true]])
 	if(hdcamera) { // HD Camera compensates for mirror/flip automatically
         sendCmds([("cmd=ptzMoveBottomRight"), ("cmd=ptzStopRun")], 500)
     } else {
@@ -973,6 +1175,8 @@ def rightDown() {
 }
 
 def rightUp() {
+    sendEvent(name: "lastMovement", value: "rightDown", isStateChange: true, descriptionText: "Moving right up")
+    runIn(RESET_DELAY, delayedEvent, [data: [name: "lastMovement", value: RESET_MOVEMENT_STRING, isStateChange: true]])
 	if(hdcamera) { // HD Camera compensates for mirror/flip automatically
         sendCmds([("cmd=ptzMoveTopRight"), ("cmd=ptzStopRun")], 500)
     } else {
@@ -989,6 +1193,8 @@ def rightUp() {
 }
 
 def right() {
+    sendEvent(name: "lastMovement", value: "right", isStateChange: true, descriptionText: "Moving right")
+    runIn(RESET_DELAY, delayedEvent, [data: [name: "lastMovement", value: RESET_MOVEMENT_STRING, isStateChange: true]])
 	if(hdcamera) { // HD Camera compensates for mirror/flip automatically
         sendCmds([("cmd=ptzMoveRight"), ("cmd=ptzStopRun")], 1000)
     } else {
@@ -1001,6 +1207,8 @@ def right() {
 }
 
 def up() {
+    sendEvent(name: "lastMovement", value: "up", isStateChange: true, descriptionText: "Moving up")
+    runIn(RESET_DELAY, delayedEvent, [data: [name: "lastMovement", value: RESET_MOVEMENT_STRING, isStateChange: true]])
 	if(hdcamera) { // HD Camera compensates for mirror/flip automatically
         sendCmds([("cmd=ptzMoveUp"), ("cmd=ptzStopRun")], 300)
     } else {
@@ -1013,6 +1221,8 @@ def up() {
 }
 
 def down() {
+    sendEvent(name: "lastMovement", value: "down", isStateChange: true, descriptionText: "Moving down")
+    runIn(RESET_DELAY, delayedEvent, [data: [name: "lastMovement", value: RESET_MOVEMENT_STRING, isStateChange: true]])
 	if(hdcamera) { // HD Camera compensates for mirror/flip automatically
         sendCmds([("cmd=ptzMoveDown"), ("cmd=ptzStopRun")], 300)
     } else {
@@ -1026,8 +1236,15 @@ def down() {
 //END PTZ CONTROLS
 
 //REBOOT
+def setReboot(delay = null) {
+    log.trace "Rebooting camera with delay $delay"
+    reboot()
+}
+
 def reboot() {
 	log.debug "Rebooting camera"
+    sendEvent(name: "reboot", value: "rebooting", isStateChange: true, descriptionText: "Rebooting camera")
+    runIn(RESET_DELAY, delayedEvent, [data: [name: "reboot", value: "ready", isStateChange: true]])
 	if(hdcamera) {
 		sendCmd("cmd=rebootSystem")
     } else {
@@ -1067,11 +1284,11 @@ def deRegisterMotionCallback() {
 }
 
 def motionCallbackNotify() {
-    log.info("Callback Notify: Motion Alarm Alert!!")
-    sendEvent(name: "alarmStatus", value: "alarm")
-    sendEvent(name: "alarm", value: "both")
-    sendEvent(name: "switch", value: "on")
-    sendEvent(name: "motion", value: "active", descriptionText: "$device.displayName detected motion")
+    log.info "Callback Notify: Motion Alarm Alert!!"
+    sendEvent(name: "alarmStatus", value: "alarm", descriptionText: "Motion alarm detected")
+    sendEvent(name: "alarm", value: "both", displayed: false)
+    sendEvent(name: "switch", value: "on", displayed: false)
+    sendEvent(name: "motion", value: "active", descriptionText: "Motion detected")
     runIn(10, poll) // Polling will set the mode back to on or off (current mode), wait 10 seconds before turning off the alarm
 }
 //END FOSCAM MANAGER INTERFACES
@@ -1111,13 +1328,23 @@ def poll() {
 
 // Get a list of commands to get latest camera status
 private getStatus() {
+    // Update list of supported presets
+    def supportedPresets = []
+    ('A'..'F').each {
+        supportedPresets << "preset${it}" // All cameras support atleast 6 presets (SD 6, HD unlimited)
+    }
+    
     //Update the tiles names
-    if(!hdcamera) // SD cameras has standard preset names
-    {
-        (1..6).each {
+    if(!hdcamera) { // SD cameras has standard preset names
+        ('A'..'F').each { // Reset first 6 preset names to standard
             sendEvent(name: "preset${it}", value: "${it}", displayed: false)
         }
+    } else {
+        supportedPresets += [ "presetTop", "presetBottom", "presetLeft", "presetRight" ] // HD cameras have 4 predefined presets also
     }
+    supportedPresets << "presetCenter" // All cameras support center
+    sendEvent(name: "supportedPresets", value: supportedPresets.encodeAsJson())
+    
     sendEvent(name: "cameraType", value: "${hdcamera ? "HD" : "SD"}", displayed: false)
     sendEvent(name: "alarmNotifyType", value: "${hdcamera ? "Pull" : "Push"}", displayed: false) // Only SD camera support Push notifications
 
@@ -1201,31 +1428,45 @@ private getStatus() {
 
 private getLogin() {
 	if(hdcamera) {
-    	return "usr=${URLEncoder.encode(username)}&pwd=${URLEncoder.encode(password?:"")}&"
+    	return "usr=${URLEncoder.encode(username ?: "")}&pwd=${URLEncoder.encode(password ?: "")}&"
     }
     else {
-    	return "user=${URLEncoder.encode(username)}&pwd=${URLEncoder.encode(password?:"")}"
+    	return "user=${URLEncoder.encode(username ?: "")}&pwd=${URLEncoder.encode(password ?: "")}"
     }
 }
 
 // Send single command to camera
-private sendCmd(cmd) {
-    sendCmds([cmd], 0)
+private sendCmd(cmd, noEvent = false) {
+    sendCmds([cmd], 0, noEvent)
 }
 
 // Send commands to the camera with an optional delay
 // Commands can be Strings or Integers which indicate an explicit delay to be inserted there
-private sendCmds(cmds, delay = delayInterval) {
+private sendCmds(cmds, delay = delayInterval, noEvent = false) {
     // Send the events here and not in hubresponse since it causes the video stream to be interrupted
-    sendEvent([name: "codeVersion", value: clientVersion()]) // Save client version for parent app
-    sendEvent([name: "dhName", value: "Foscam Device Handler"]) // Save DH Name for parent app
+    if (!noEvent) {
+    	sendEvent([name: "codeVersion", value: clientVersion()]) // Save client version for parent app
+    	sendEvent([name: "dhName", value: "Foscam Device Handler"]) // Save DH Name for parent app
+    }
 
     def useIP // We can't use state.ipAddress since it will be updated here and state variables won't be committed until the function exits (so readback will not show the latest state)
-    def cleanIP = ip.toLowerCase().replace("https://", "").replace("http://", "") // Sanitize the hostname/IP address, remove leading http(s)
+    def cleanIP = ip?.toLowerCase()?.replace("https://", "")?.replace("http://", "") // Sanitize the hostname/IP address, remove leading http(s)
     
     // ST has blocked access to Google DNS do don't convert hostname to IP for now, if we have a hostname/public IP use the server API else use local hubAction for local IP (also not all routers support loopback so prefer to use server when using a hostname or public ip)
     useIP = cleanIP
     
+    if (!useIP) {
+        def logErr = "Configure camera IP/name"
+        sendEvent(name: "alarmStatus", value: "error", descriptionText: logErr, displayed: true, isStateChange: true)
+        log.error logErr
+        return null
+    } else if (!port) {
+        def logErr = "Configure camera port"
+        sendEvent(name: "alarmStatus", value: "error", descriptionText: logErr, displayed: true, isStateChange: true)
+        log.error logErr
+        return null
+    }
+
 	/*// Check if we have a hostname and if so convert to IP Address
     //log.trace "Saved IP: $state.ipAddress, Saved Host: $state.cameraHost, User IP: $cleanIP"
     if (!state.ipAddress || (state.cameraHost != cleanIP)) { // check if the IP/Host has changed or we don't have an IP address
@@ -1569,32 +1810,32 @@ private processHDResponse(body) {
     def soundAlarmDetect = "$statusVars.soundAlarm" // Sounds alarm
     //log.warn "motionAlarmDetect=$motionAlarmDetect, humanAlarmDetect=$humanAlarmDetect, soundAlarmDetect=$soundAlarmDetect"
     if(motionAlarmDetect == "2" || soundAlarmDetect == "2" || humanAlarmDetect == "2") {
-        log.info("Polled: ${motionAlarmDetect == "2" ? "Motion" : (humanAlarmDetect == "2" ? "Human Motion" : "Sound Motion")} Alarm Alert!!")
-        sendEvent(name: "alarmStatus", value: "alarm")
-        sendEvent(name: "alarm", value: "both")
-        sendEvent(name: "switch", value: "on")
-        sendEvent(name: "motion", value: "active", descriptionText: "$device.displayName detected ${motionAlarmDetect == "2" ? "motion" : (humanAlarmDetect == "2" ? "human motion" : "sound motion")}")
+        log.info "Polled: ${motionAlarmDetect == "2" ? "Motion" : (humanAlarmDetect == "2" ? "Human Motion" : "Sound Motion")} Alarm Alert!!"
+        sendEvent(name: "alarmStatus", value: "alarm", descriptionText: "Motion alarm detected")
+        sendEvent(name: "alarm", value: "both", displayed: false)
+        sendEvent(name: "switch", value: "on", displayed: false)
+        sendEvent(name: "motion", value: "active", descriptionText: "${motionAlarmDetect == "2" ? "Motion" : (humanAlarmDetect == "2" ? "Human motion" : "Sound motion")} detected")
     } else if(motionAlarmDetect == "1" || soundAlarmDetect == "1" || humanAlarmDetect == "1") {
-        log.info("Polled: ${motionAlarmDetect == "1" ? "Motion" : (humanAlarmDetect == "1" ? "Human Motion" : "Sound Motion")} Alarm On")
-        sendEvent(name: "alarmStatus", value: "on")
-        sendEvent(name: "alarm", value: "both")
-        sendEvent(name: "switch", value: "on")
-        sendEvent(name: "motion", value: "inactive", descriptionText: "$device.displayName ${motionAlarmDetect == "1" ? "motion" : (humanAlarmDetect == "1" ? "human motion" : "sound motion")} stopped")
+        log.info "Polled: ${motionAlarmDetect == "1" ? "Motion" : (humanAlarmDetect == "1" ? "Human Motion" : "Sound Motion")} Alarm On"
+        sendEvent(name: "alarmStatus", value: "on", descriptionText: "Motion detection activated")
+        sendEvent(name: "alarm", value: "both", displayed: false)
+        sendEvent(name: "switch", value: "on", displayed: false)
+        sendEvent(name: "motion", value: "inactive", descriptionText: "${motionAlarmDetect == "1" ? "Motion" : (humanAlarmDetect == "1" ? "Human motion" : "Sound motion")} stopped")
     } else if(motionAlarmDetect || soundAlarmDetect || humanAlarmDetect) {
-        log.info("Polled: Motion Alarm Off")
-        sendEvent(name: "alarmStatus", value: "off")
-        sendEvent(name: "alarm", value: "off")
-        sendEvent(name: "switch", value: "off")
-        sendEvent(name: "motion", value: "inactive", descriptionText: "$device.displayName motion detection off")
+        log.info "Polled: Motion Alarm Off"
+        sendEvent(name: "alarmStatus", value: "off", descriptionText: "Motion detection deactivated")
+        sendEvent(name: "alarm", value: "off", displayed: false)
+        sendEvent(name: "switch", value: "off", displayed: false)
+        sendEvent(name: "motion", value: "inactive")
     }
 
     // First get Get IR LED Status
     def ledS = "$statusVars.infraLedState"
     if(ledS == "1") {
-        log.info("Polled: LED On")
+        log.info "Polled: LED On"
         sendEvent(name: "irState", value: "on", displayed: false) // this is an internal variable to track the LED state
     } else if(ledS == "0") {
-        log.info("Polled: LED Off")
+        log.info "Polled: LED Off"
         sendEvent(name: "irState", value: "off", displayed: false) // this is an internal variable to track the LED state
     }
 
@@ -1602,10 +1843,10 @@ private processHDResponse(body) {
     def ledM = "$statusVars.mode"
     if(ledM == "0") {
         sendEvent(name: "irMode", value: "auto", displayed: false) // this is an internal variable to track the LED state
-        log.info("Polled: LED Mode Auto")
+        log.info "Polled: LED Mode Auto"
     } else if(ledM == "1") {
         sendEvent(name: "irMode", value: "manual", displayed: false) // this is an internal variable to track the LED state
-        log.info("Polled: LED Mode Manual")
+        log.info "Polled: LED Mode Manual"
     }
 
     // Update LED Status
@@ -1616,12 +1857,12 @@ private processHDResponse(body) {
             if (irMode == "auto") {
                 sendEvent(name: "irState", value: "reset", displayed: false) // this is an internal variable to track the LED state
                 sendEvent(name: "irMode", value: "reset", displayed: false) // this is an internal variable to track the LED state
-                sendEvent(name: "ledStatus", value: "autoOn", displayed: false)
+                sendEvent(name: "ledStatus", value: "autoOn", descriptionText: "LED is Auto (on)")
                 log.trace "ledStatus autoOn"
             } else if (irMode == "manual") {
                 sendEvent(name: "irState", value: "reset", displayed: false) // this is an internal variable to track the LED state
                 sendEvent(name: "irMode", value: "reset", displayed: false) // this is an internal variable to track the LED state
-                sendEvent(name: "ledStatus", value: "on", displayed: false)
+                sendEvent(name: "ledStatus", value: "on", descriptionText: "LED is On")
                 log.trace "ledStatus on"
             }
         	break
@@ -1630,12 +1871,12 @@ private processHDResponse(body) {
             if (irMode == "auto") {
                 sendEvent(name: "irState", value: "reset", displayed: false) // this is an internal variable to track the LED state
                 sendEvent(name: "irMode", value: "reset", displayed: false) // this is an internal variable to track the LED state
-                sendEvent(name: "ledStatus", value: "autoOff", displayed: false)
+                sendEvent(name: "ledStatus", value: "autoOff", descriptionText: "LED is Auto (off)")
                 log.trace "ledStatus autoOff"
             } else if (irMode == "manual") {
                 sendEvent(name: "irState", value: "reset", displayed: false) // this is an internal variable to track the LED state
                 sendEvent(name: "irMode", value: "reset", displayed: false) // this is an internal variable to track the LED state
-                sendEvent(name: "ledStatus", value: "off", displayed: false)
+                sendEvent(name: "ledStatus", value: "off", descriptionText: "LED is Off")
                 log.trace "ledStatus off"
             }
         	break
@@ -1652,8 +1893,8 @@ private processHDResponse(body) {
         
         (4..9).each {
             def presetName = "${statusVars."point${it}"}"
-            log.trace "Found preset ${it - 3} -> $presetName"
-            sendEvent(name: "preset${it - 3}", value: "${presetName ?: (it - 3)}", isStateChange: true, displayed: false) // Force UI update
+            log.trace "Found preset ${(char)(((int)'A') + it - 4)} -> $presetName"
+            sendEvent(name: "preset${(char)(((int)'A') + it - 4)}", value: "${presetName ?: (it - 3)}", isStateChange: true, displayed: false) // Force UI update
         }
     }
     
@@ -1713,7 +1954,7 @@ private processSDResponse(body) {
 
     // First get the status and save it in the state variable
     if(body.find("alarm_status=1")) { // Check for active alarm
-        log.info("Polled: Motion Alarm Alert!!")
+        log.info "Polled: Motion Alarm Alert!!"
         state.sdAlarmStatus = "Alarm"
     } else if(body.find("alarm_status=0")) {
         state.sdAlarmStatus = "None"
@@ -1722,11 +1963,11 @@ private processSDResponse(body) {
     // Next get the motion but we can't save it in the state variable since the state variable is committed only when the function exits and we need to use it below
     def sdAlarmArmed
     if(body.find("alarm_motion_armed=0")) {
-        log.info("Polled: Motion Alarm Off")
+        log.info "Polled: Motion Alarm Off"
         sdAlarmArmed = "Off"
     }
     else if(body.find("alarm_motion_armed=1")) { // only check for "on" status when alarm is not active
-        log.info("Polled: Motion Alarm On")
+        log.info "Polled: Motion Alarm On"
         sdAlarmArmed = "On"
     }
 
@@ -1734,30 +1975,30 @@ private processSDResponse(body) {
     //log.trace "Motion: ${state.sdAlarmStatus}, Armed: ${sdAlarmArmed}"
     if (sdAlarmArmed == "Off") { // First priority, if we're in off state then turn it off
         log.trace "Motiom alarm off"
-        sendEvent(name: "alarmStatus", value: "off")
-        sendEvent(name: "alarm", value: "off")
-        sendEvent(name: "switch", value: "off")
-        sendEvent(name: "motion", value: "inactive", descriptionText: "$device.displayName motion stopped")
+        sendEvent(name: "alarmStatus", value: "off", descriptionText: "Motion detection deactivated")
+        sendEvent(name: "alarm", value: "off", displayed: false)
+        sendEvent(name: "switch", value: "off", displayed: false)
+        sendEvent(name: "motion", value: "inactive")
         state.sdAlarmStatus = "None" // Since they are 2 different registers we can have have Alarm on but monitoring off, force Alarm off if monitoring is off
     } else if ((sdAlarmArmed == "On") && (state.sdAlarmStatus == "Alarm")) { // Next priority Alarm 
         log.trace "Motion alarm Alarmed"
-        sendEvent(name: "alarmStatus", value: "alarm")
-        sendEvent(name: "alarm", value: "both")
-        sendEvent(name: "switch", value: "on")
-        sendEvent(name: "motion", value: "active", descriptionText: "$device.displayName detected motion")
+        sendEvent(name: "alarmStatus", value: "alarm", descriptionText: "Motion alarm detected")
+        sendEvent(name: "alarm", value: "both", displayed: false)
+        sendEvent(name: "switch", value: "on", displayed: false)
+        sendEvent(name: "motion", value: "active", descriptionText: "Motion detected")
     } else if ((sdAlarmArmed == "On") && (state.sdAlarmStatus == "None")) { // If not in alarm check for On
         log.trace "Motion alarm on"
-        sendEvent(name: "alarmStatus", value: "on")
-        sendEvent(name: "alarm", value: "both")
-        sendEvent(name: "switch", value: "on")
-        sendEvent(name: "motion", value: "inactive", descriptionText: "$device.displayName motion stopped")
+        sendEvent(name: "alarmStatus", value: "on", descriptionText: "Motion detection activated")
+        sendEvent(name: "alarm", value: "both", displayed: false)
+        sendEvent(name: "switch", value: "on", displayed: false)
+        sendEvent(name: "motion", value: "inactive", descriptionText: "Motion stopped")
     }
 
     if(body.find("alarm_http=0")) {
-        log.info("Polled: Motion Alarm Callback Notification Disabled")
+        log.info "Polled: Motion Alarm Callback Notification Disabled"
     } else if(body.find("alarm_http=1")) {
         def callbackURL = (body =~ ".*?alarm_http_url='(.*?)'")[0][1]
-        log.info("Polled: Motion Alarm Callback Notification Enabled with URL $callbackURL")
+        log.info "Polled: Motion Alarm Callback Notification Enabled with URL $callbackURL"
     }
 
     // Get mirror and flip settings
@@ -2278,4 +2519,3 @@ private rateLimitExceeded(def x = "", def reset = false) {
 }
 
 // THIS IS THE END OF THE FILE
-
