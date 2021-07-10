@@ -78,7 +78,7 @@ def mainPage() {
                 input "audioVolume", "number", title: "...at this volume level (optional)", description: "keep current", required: false, range: "1..100"
             }
             input("recipients", "contact", title: "Send notifications to", multiple: true, required: false) {
-                paragraph "You can enter multiple phone numbers by separating them with a '*'. E.g. 5551234567*+448747654321"
+                paragraph "You can enter multiple phone numbers by separating them with a '*'. E.g. 5551234567*+18747654321"
                 input "sms", "phone", title: "Send SMS notification to", required: false, image: "https://www.rboyapps.com/images/Notifications.png"
                 input "push", "bool", title: "Send push notifications", defaultValue: true, required: false
             }

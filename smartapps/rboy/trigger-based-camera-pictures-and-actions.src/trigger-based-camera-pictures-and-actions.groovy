@@ -21,7 +21,7 @@
 */ 
 
 def clientVersion() {
-    return "01.05.04"
+    return "01.06.00"
 }
 
 /**
@@ -29,6 +29,7 @@ def clientVersion() {
  *
  * Copyright RBoy Apps, redistribution, modification or reuse code is not allowed without permission
  * Change log:
+ * 2020-09-12 - (v01.06.00) Update for new ST app
  * 2020-01-20 - (v01.05.04) Update icons for broken ST Android app 2.18
  * 2019-10-11 - (v01.05.03) Add support for the new Sonos integration (auto detect)
  * 2019-06-24 - (v01.05.02) Don't resume playback if no audio volume is specified
@@ -54,43 +55,51 @@ definition(
 )
 
 preferences {
-    section("Trigger based Camera Pictures and Actions v${clientVersion()}") {
-    }
-    section("Choose Trigger Events") {
-        paragraph "Choose motion sensors and contact sensors which will trigger the actions in the next section"
-        input "motionSensors", "capability.motionSensor", title: "If motion is detected...", multiple: true, required: false
-        input "contactSensors", "capability.contactSensor", title: "If a contact is opened/closed...", multiple: true, required: false
-        input "buttonSwitches", "capability.button", title: "If a button is pressed...", multiple: true, required: false
-        input "momentarySwitches", "capability.momentary", title: "If a switch is pushed...", multiple: true, required: false
-        input "accelerationSensors", "capability.accelerationSensor", title: "If acceleration detected here...", multiple: true, required: false
-    }
+    page(name: "setupApp")
+}
 
-    section("Choose Trigger Actions") {
-        paragraph "Choose cameras and switches which will take pictures and turn on when events are triggered from the previous section"
-        input "cameras", "capability.imageCapture", title: "...take pictures with these cameras", multiple: true, required: false
-        input "burstCount", "number", title: "...how many pictures?", defaultValue:3
-        input "cameraMonitoring", "bool", title: "...optionally turn on camera motion monitoring"
-        input "switches", "capability.switch", title: "...turn on these switches", multiple: true, required: false
-        input
-    }
+def setupApp() {
+    dynamicPage(name:"setupApp", title: "Trigger based Camera Pictures and Actions v${clientVersion()}", install: true, uninstall: true) {
 
-    section("Notification Options") {
-        input "audioDevices", "capability.audioNotification", title: "Speak notifications on", required: false, multiple: true, submitOnChange: true, image: "https://www.rboyapps.com/images/Horn.png"
-        if (audioDevices) {
-            input "audioVolume", "number", title: "...at this volume level (optional)", description: "keep current", required: false, range: "1..100"
+        section("Choose Trigger Events") {
+            paragraph "Choose devices which will trigger actions"
+            input "motionSensors", "capability.motionSensor", title: "Motion is detected...", multiple: true, required: false
+            input "contactSensors", "capability.contactSensor", title: "Contact is opened/closed...", multiple: true, required: false
+            input "buttonSwitches", "capability.button", title: "Button is pressed...", multiple: true, required: false
+            input "momentarySwitches", "capability.momentary", title: "Switch is pushed...", multiple: true, required: false
+            input "accelerationSensors", "capability.accelerationSensor", title: "Acceleration detected...", multiple: true, required: false
         }
-        input("recipients", "contact", title: "Send notifications to", multiple: true, required: false) {
-            input "push", "bool", title: "Push notifications", required: false, image: "https://www.rboyapps.com/images/PushNotification.png", submitOnChange: true
-            if (!push) {
-                input "silentPush", "bool", title: "Silent notifications", required: false, image: "https://www.rboyapps.com/images/SilentNotification.png"
+
+        section("Choose Trigger Actions") {
+            paragraph "Choose actions when devices are triggered"
+            input "cameras", "capability.imageCapture", title: "Take pictures with these cameras", multiple: true, required: false, submitOnChange: true
+            if (cameras) {
+                input "burstCount", "number", title: "...how many pictures?", defaultValue: 3, required: true
+                input "cameraMonitoring", "bool", title: "...optionally turn on camera motion monitoring", required: true
             }
-            input "sms", "phone", title: "Send SMS notification to", required: false, image: "https://www.rboyapps.com/images/Notifications.png"
-            paragraph "You can enter multiple phone numbers by separating them with a '*'. E.g. 5551234567*+448747654321"
+            input "switches", "capability.switch", title: "Turn on these switches", multiple: true, required: false
+            input
         }
-    }
-    section() {
-        label title: "Assign a name for this SmartApp (optional)", required: false
-        input name: "updateNotifications", title: "Check for new versions of the app", type: "bool", defaultValue: true, required: false
+
+        section("Notification Options") {
+            input "audioDevices", "capability.audioNotification", title: "Speak notifications on", required: false, multiple: true, submitOnChange: true, image: "https://www.rboyapps.com/images/Horn.png"
+            if (audioDevices) {
+                input "audioVolume", "number", title: "...at this volume level (optional)", description: "keep current", required: false, range: "1..100"
+            }
+            input("recipients", "contact", title: "Send notifications to", multiple: true, required: false) {
+                input "push", "bool", title: "Push notifications", required: false, image: "https://www.rboyapps.com/images/PushNotification.png", submitOnChange: true
+                if (!push) {
+                    input "silentPush", "bool", title: "Silent notifications", required: false, image: "https://www.rboyapps.com/images/SilentNotification.png"
+                }
+                input "sms", "phone", title: "Send SMS notification to", required: false, image: "https://www.rboyapps.com/images/Notifications.png"
+                paragraph "You can enter multiple phone numbers by separating them with a '*'. E.g. 5551234567*+18747654321"
+            }
+        }
+        
+        section() {
+            label title: "Assign a name for this SmartApp (optional)", required: false
+            input name: "updateNotifications", title: "Check for new versions of the app", type: "bool", defaultValue: true, required: false
+        }
     }
 }
 

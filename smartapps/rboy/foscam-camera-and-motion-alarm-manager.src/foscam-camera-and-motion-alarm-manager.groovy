@@ -21,7 +21,7 @@
 */ 
 
 def clientVersion() {
-    return "03.02.02"
+    return "04.01.00"
 }
 
 /**
@@ -29,6 +29,8 @@ def clientVersion() {
  *
  * Author: RBoy Apps
  * Copyright RBoy Apps, redistribution, reuse or modification of code is not allowed without permission
+ * 2020-12-01 - (v04.01.00) Update for new ST app capabilities
+ * 2020-08-26 - (v03.03.00) Update for new ST app
  * 2020-05-04 - (v03.02.02) Try to detect platform outage and prevent code upgrade spam notifications
  * 2020-01-20 - (v03.02.01) Update icons for broken ST Android app 2.18
  * 2019-12-09 - (v03.02.00) Support for new ST app
@@ -88,6 +90,9 @@ definition(
     singleInstance: true)
 
 preferences {
+    page(name: "loginPage")
+    page(name: "loginPage2")
+    page(name: "setupApp")
 	page(name: "discoverFoscamCameras", title:"Foscam Camera Discovery")
 	page(name: "configureFoscam", title: "Foscam Camera Setup")
     page(name: "configurePage")
@@ -104,8 +109,69 @@ import groovy.transform.Synchronized
 
 private getMaxCameras() { 5 }
 
+def loginPage() {
+    log.trace "Login page"
+    if (!state.loginSuccess && username) {
+        loginCheck()
+    }
+    if (state.loginSuccess) {
+        setupApp()
+    } else {
+        state.sendUpdate = true
+        loginSection("loginPage", "loginPage2")
+    }
+}
+
+def loginPage2() {
+    log.trace "Login page2"
+    if (!state.loginSuccess && username) {
+        loginCheck()
+    }
+    if (state.loginSuccess) {
+        setupApp()
+    } else {
+        state.sendUpdate = true
+        loginSection("loginPage2", "loginPage")
+    }
+}
+
+private loginSection(name, nextPage) {
+    dynamicPage(name: name, title: "Foscam Camera and Motion Alarm Manager v${clientVersion()}", install: state.loginSuccess, uninstall: true, nextPage: state.loginSuccess ? "" : nextPage) {
+        section() {
+            if (state.loginError) {
+                log.warn "Authenticating failed: ${state.loginError}"
+                paragraph title: "Login failed", image: "https://www.rboyapps.com/images/RBoyApps.png", required: true, "${state.loginError}"
+            } else {
+                log.debug "Check authentication credentials, Login: $username"
+                paragraph title: "Login", image: "https://www.rboyapps.com/images/RBoyApps.png", required: false, "Enter your RBoy Apps username\nYou can retrieve your username from www.rboyapps.com lost password page"
+            }
+
+            input name: "username", type: "text", title: "Username", capitalization: "none", submitOnChange: false, required: false
+        }
+    }
+}
+
+def setupApp() {
+    dynamicPage(name:"setupApp", title: "Foscam Camera and Motion Alarm Manager v${clientVersion()}", nextPage: "configureFoscam") {
+        def physicalHubs = location.hubs.findAll { it.type == physicalgraph.device.HubType.PHYSICAL } // Ignore Virtual hubs
+        def hub = physicalHubs[0]
+        if (hub) {
+            section("SmartThings Hub Detected") {
+                paragraph "Please ensure that your SmartThings Hub and is on the same network as your Foscam Camera and there is no firewall blocking the communication", required: true
+                paragraph "Click Next to continue"
+            }
+        } else {
+            section("No SmartThings Hub Detected") {
+                paragraph "Please install this SmartApp in the SmartThings Location which contains your SmartThings Hub and is on the same network as your Foscam Camera", required: true
+            }
+        }
+        
+        remove("Uninstall Foscam Manager")
+    }
+}
+
 def discoverFoscamCameras() {
-    dynamicPage(name:"discoverFoscamCameras", title: "Foscam Camera and Motion Alarm Manager v${clientVersion()}", nextPage:"configureFoscam", refreshInterval:1) {
+    dynamicPage(name:"discoverFoscamCameras", title: "Foscam Camera and Motion Alarm Manager v${clientVersion()}", nextPage: "configureFoscam", refreshInterval: 1) {
         if(!state.subscribe) {
             log.trace "Clearing initial settings"
             state.cameras = [:] // Reset it on each start do we get a clean list of cameras if IP's have changed
@@ -297,7 +363,7 @@ private getNewConfiguredCameras() {
         
         if (settingsComplete(num)) {
             //cams << [dni: "${cam.name.replaceAll("\\W","")}", prefs: cam, name: settings."name${num}"] // (we need a unique dni which is the camera name, remove all non word characters from name)
-            cams << [dni: "${convertIPtoHex(cam.ip)}:${convertPortToHex(cam.port)}", prefs: cam, name: settings."name${num}"] // (we need a unique dni which is the ip:port in hex)
+            cams << [dni: "${convertIPtoHex(cam.ip) ?: cam.ip}:${convertPortToHex(cam.port)}", prefs: cam, name: settings."name${num}"] // (we need a unique dni which is the ip:port in hex, if ip isn't available then use DNS name)
         }
     }
     log.trace "Configured Cameras: ${cams}"
@@ -308,14 +374,14 @@ def configurePage() {
     dynamicPage(name: "configurePage", title: "Configure Cameras", install: true, uninstall: true) {    
         section () {
             if (!cruiseNames || !presetNames) {
-                paragraph title: "These settings will be available the next time you open the app", required: true, ""
+                paragraph title: "These settings will be available after the camera successfully connects to SmartThings the next time you open the app", required: true, ""
             } else {
                 href(name: "motionActions", title: "Motion detected actions", page: "motionActionsPage", description: motionActionsDescription(), required: false)
                 href(name: "externalAlarmCruise", title: "External alarm actions", page: "externalAlarmCruisePage", description: externalAlarmCruiseDescription(), required: false)
                 href(name: "modePresets", title: "Presets for modes", page: "modePresetsPage", description: modePresetsDescription(), required: false)
                 href(name: "presencePresets", title: "Presets for people", page: "presencePresetsPage", description: presencePresetsDescription(), required: false)
             }
-            href(name: "shmIntegration", title: "Classic SHM integration", page: "shmIntegrationPage", description: shmIntegrationDescription(), required: false)
+            //href(name: "shmIntegration", title: "Classic SHM integration", page: "shmIntegrationPage", description: shmIntegrationDescription(), required: false)
         }
         
         section("Advanced Alarm Detection Settings (optional)", hidden: true, hideable: true) {
@@ -533,7 +599,7 @@ private getPresetNames(camera = null) {
     log.trace "Getting present names from camera ${camera ?: cameras[0]}"
     def ret = []
     if (cameras) {
-        (1..6).each { // Cameras have 6 presets
+        ('A'..'F').each { // Cameras have 6 presets
             (camera ?: cameras[0])."currentPreset${it}" ? ret.add((camera ?: cameras[0])."currentPreset${it}") : ""
         }
     }
@@ -683,9 +749,8 @@ private cleanUpCameras() {
     }
 }
 
-private setCameraToPreset(camera, resetPreset)
-{
-    (1..6).each { // 6 presets on the camera
+private setCameraToPreset(camera, resetPreset) {
+    ('A'..'F').each { // 6 presets on the camera
         if (camera."currentPreset${it}" == resetPreset) {
             log.debug "Setting camera $camera to preset ${it} -> $resetPreset"
             camera."preset${it}"()
@@ -701,12 +766,18 @@ private int getActiveAlarmPollPeriod() {
 // APP STUFF
 def installed() {
     log.trace "Installed called"
+    authUpdate("install")
     initialize()
 }
 
 def updated() {
     log.trace "Updated called"
     initialize()
+}
+
+def uninstalled() {
+    log.trace "Uninstalled called"
+    authUpdate("uninstall")
 }
 
 def initialize() {
@@ -734,7 +805,7 @@ def initialize() {
     subscribe(cameras, "motion.active", motionDetected)
     subscribe(extAlarms, "alarm", extAlarmNotify)
     subscribe(peoplePresets, "presence.present", arrivalNotify) // People arrival notification
-    subscribe(location, "alarmSystemStatus", shmHandler) // SHM Integration
+    //subscribe(location, "alarmSystemStatus", shmHandler) // SHM Integration
 
     // Initialize when we are going to check for code version updates
     TimeZone timeZone = location.timeZone
@@ -964,7 +1035,7 @@ def heartBeatMonitor() {
         def msg = "NOTE: ${app.label} detected a code upgrade. Updating configuration, please open the app and click on Save to re-validate your settings"
         log.warn msg
         runIn(1, initialize) // Reinitialize the app offline to avoid a loop as initialize calls heartbeat
-        sendNotifications(msg) // Do this in the end as it may timeout
+        //sendPush msg // Do this in the end as it may timeout
         return
     }
 
@@ -1425,6 +1496,82 @@ private deleteSettings(map) {
     }
 }
 
+private loginCheck() {
+    log.trace "Login check"
+	
+    authUpdate("check") { resp ->
+        if (resp?.status == 401) { // Invalid username
+            state.loginError = "Invalid username" // No response from website - we should not be here
+            state.loginSuccess = false
+        } else if ((resp?.status == 200) && resp?.data) {
+            def ret = resp.data
+            if (ret?.Authenticated) {
+                state.loginError = ""
+                state.loginSuccess = true
+            } else {
+                state.loginError = ret?.Error
+                state.loginSuccess = false
+            }
+        } else {
+            state.loginError = "Unable to authenticate license, please try again later" // No response from website - we should not be here
+            state.loginSuccess = false
+        }
+    }
+}
+
+private authUpdate(String action, Closure closure = null) {
+    if (!username) {
+    	return
+    }
+    
+    def params = [
+        uri: "https://auth.rboyapps.com/v1/license",
+        headers: [
+            Authorization: "Basic ${"${username?.trim()?.toLowerCase()}:${username?.trim()?.toLowerCase()}".getBytes().encodeBase64()}",
+        ],
+        body: [
+            AppId: app.id,
+            Timestamp: new Date(now()).format("yyyy-MM-dd'T'HH:mm:ssXXX", location.timeZone ?: TimeZone.getDefault()), // ISO_8601
+            State: action,
+            Username: username?.trim()?.toLowerCase(),
+            LocationId: location.id,
+            LocationName: location.name,
+            AccountId: app.accountId,
+            AppName: "Foscam Camera Manager",
+            AppInstallName: app.label,
+            AppVersion: clientVersion(),
+        ]
+    ]
+    
+    log.trace "Calling AuthUpdate\n${params}"
+
+    try {
+        httpPostJson(params) { resp ->
+            /*resp?.headers.each {
+                log.trace "${it.name} : ${it.value}"
+            }
+            log.trace "response contentType: ${resp?.contentType}"*/
+            log.debug "response data: ${resp?.data}"
+            if (closure) {
+                closure(resp)
+            }
+        }
+    } catch (e) {
+        //log.error "Auth response:\n${e.response?.data}\n\n${e.response?.allHeaders}\n\n${e.response?.status}\n\n${e.response?.statusLine}\n\n$e"
+        if ("${e}"?.contains("HttpResponseException")) { // If it's a HTTP error with non 200 status
+            log.warn "Auth status: ${e?.response?.status}, response: ${e?.response?.statusLine}"
+            if (closure) {
+                closure(e?.response)
+            }
+        } else { // Some other error
+            log.error "Auth error: $e"
+            if (closure) {
+                closure(null)
+            }
+        }
+    }
+}
+
 def checkForCodeUpdate(evt = null) {
     log.trace "Getting latest version data from the RBoy Apps server"
     
@@ -1487,4 +1634,3 @@ def checkForCodeUpdate(evt = null) {
 }
 
 // THIS IS THE END OF THE FILE
-
